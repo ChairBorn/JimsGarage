@@ -28,19 +28,19 @@ k3sVersion="v1.26.10+k3s2"
 
 # Set the IP addresses of the master and work nodes
 master1=192.168.3.9
-master2=192.168.3.22
-master3=192.168.3.23
-worker1=192.168.3.24
-worker2=192.168.3.25
+master2=192.168.3.194
+master3=192.168.3.49
+worker1=192.168.3.225
+worker2=192.168.3.200
 
 # User of remote machines
-user=ubuntu
+user=boss
 
 # Interface used on remotes
 interface=eth0
 
 # Set the virtual IP address (VIP)
-vip=192.168.3.50
+vip=192.168.3.3
 
 # Array of master nodes
 masters=($master2 $master3)
