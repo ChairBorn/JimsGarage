@@ -27,7 +27,7 @@ KVVERSION="v0.6.3"
 k3sVersion="v1.26.10+k3s2"
 
 # Set the IP addresses of the master and work nodes
-master1=192.168.3.21
+master1=192.168.3.9
 master2=192.168.3.22
 master3=192.168.3.23
 worker1=192.168.3.24
