@@ -225,10 +225,10 @@ kubectl wait --namespace metallb-system \
                 --selector=component=controller \
                 --timeout=120s
 kubectl apply -f ipAddressPool.yaml
-kubectl apply -f https://raw.githubusercontent.com/JamesTurland/JimsGarage/main/Kubernetes/K3S-Deploy/l2Advertisement.yaml
+kubectl apply -f https://raw.githubusercontent.com/ChairBorn/JimsGarage/refs/heads/main/Kubernetes/K3S-Deploy/l2Advertisement.yaml
 
 kubectl get nodes
 kubectl get svc
 kubectl get pods --all-namespaces -o wide
 
-echo -e " \033[32;5mHappy Kubing! Access Nginx at EXTERNAL-IP above\033[0m"
+echo -e " \033[32;5mHappy Kubing from big D ChairBorn Access Nginx at EXTERNAL-IP above\033[0m"
