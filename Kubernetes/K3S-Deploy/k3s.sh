@@ -43,7 +43,7 @@ interface=eth0
 vip=192.168.3.3
 
 # Array of master nodes
-masters=($master1 $master2 $master3)
+masters=($master2 $master3)
 
 # Array of worker nodes
 workers=($worker1 $worker2)
