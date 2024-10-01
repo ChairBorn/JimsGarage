@@ -21,7 +21,7 @@ echo -e " \033[32;5m                                                           \
 #############################################
 
 # Version of Kube-VIP to deploy
-KVVERSION="v0.6.3"
+KVVERSION="v0.8.3"
 
 # K3S Version
 k3sVersion="v1.26.10+k3s2"
@@ -43,7 +43,7 @@ interface=eth0
 vip=192.168.3.3
 
 # Array of master nodes
-masters=($master2 $master3)
+masters=($master1 $master2 $master3)
 
 # Array of worker nodes
 workers=($worker1 $worker2)
@@ -58,7 +58,7 @@ allnomaster1=($master2 $master3 $worker1 $worker2)
 lbrange=192.168.3.60-192.168.3.80
 
 #ssh certificate name variable
-certName=id_rsa
+certName=devops
 
 #ssh config file
 config_file=~/.ssh/config
