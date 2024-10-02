@@ -32,7 +32,7 @@ worker1=192.168.3.104
 worker2=192.168.3.105
 
 # User of remote machines
-user=ubuntu
+user=boss
 
 # Interface used on remotes
 interface=eth0
@@ -59,7 +59,7 @@ allnomaster1=($master2 $master3 $worker1 $worker2)
 lbrange=192.168.3.60-192.168.3.80
 
 #ssh certificate name variable
-certName=id_rsa
+certName=devops
 
 #############################################
 #            DO NOT EDIT BELOW              #
