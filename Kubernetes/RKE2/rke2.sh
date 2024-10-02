@@ -24,7 +24,7 @@ echo -e " \033[32;5m                                                           \
 KVVERSION="v0.8.3"
 
 # Set the IP addresses of the admin, masters, and workers nodes
-admin=192.168.3.5
+admin=192.168.3.106
 master1=192.168.3.101
 master2=192.168.3.102
 master3=192.168.3.103
@@ -95,7 +95,7 @@ done
 # create RKE2's self-installing manifest dir
 sudo mkdir -p /var/lib/rancher/rke2/server/manifests
 # Install the kube-vip deployment into rke2's self-installing manifest folder
-curl -sO https://raw.githubusercontent.com/JamesTurland/JimsGarage/main/Kubernetes/RKE2/kube-vip
+curl -sO https://raw.githubusercontent.com/ChairBorn/JimsGarage/refs/heads/main/Kubernetes/RKE2/kube-vip
 cat kube-vip | sed 's/$interface/'$interface'/g; s/$vip/'$vip'/g' > $HOME/kube-vip.yaml
 sudo mv kube-vip.yaml /var/lib/rancher/rke2/server/manifests/kube-vip.yaml
 
@@ -207,8 +207,10 @@ kubectl get nodes
 
 # Step 8: Install Metallb
 echo -e " \033[32;5mDeploying Metallb\033[0m"
+#kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/namespace.yaml
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/namespace.yaml
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml
+#kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/manifests/metallb-native.yaml
 # Download ipAddressPool and configure using lbrange above
 curl -sO https://raw.githubusercontent.com/JamesTurland/JimsGarage/main/Kubernetes/RKE2/ipAddressPool
 cat ipAddressPool | sed 's/$lbrange/'$lbrange'/g' > $HOME/ipAddressPool.yaml
@@ -220,7 +222,7 @@ kubectl wait --namespace metallb-system \
                 --selector=component=controller \
                 --timeout=1800s
 kubectl apply -f ipAddressPool.yaml
-kubectl apply -f https://raw.githubusercontent.com/JamesTurland/JimsGarage/main/Kubernetes/RKE2/l2Advertisement.yaml
+kubectl apply -f https://raw.githubusercontent.com/ChairBorn/JimsGarage/refs/heads/main/Kubernetes/RKE2/l2Advertisement.yaml
 
 # Step 10: Install Rancher (Optional - Delete if not required)
 #Install Helm
@@ -235,20 +237,22 @@ kubectl create namespace cattle-system
 
 # Install Cert-Manager
 echo -e " \033[32;5mDeploying Cert-Manager\033[0m"
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.crds.yaml
+#kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.crds.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.3/cert-manager.yaml
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
 helm install cert-manager jetstack/cert-manager \
 --namespace cert-manager \
 --create-namespace \
---version v1.13.2
+#--version v1.13.2
+--version v1.15.3
 kubectl get pods --namespace cert-manager
 
 # Install Rancher
 echo -e " \033[32;5mDeploying Rancher\033[0m"
 helm install rancher rancher-latest/rancher \
  --namespace cattle-system \
- --set hostname=rancher.my.org \
+ --set hostname=rancher.cajl.us \
  --set bootstrapPassword=admin
 kubectl -n cattle-system rollout status deploy/rancher
 kubectl -n cattle-system get deploy rancher
