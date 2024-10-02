@@ -21,15 +21,15 @@ echo -e " \033[32;5m                                                           \
 #############################################
 
 # Version of Kube-VIP to deploy
-KVVERSION="v0.6.3"
+KVVERSION="v0.8.3"
 
 # Set the IP addresses of the admin, masters, and workers nodes
 admin=192.168.3.5
-master1=192.168.3.21
-master2=192.168.3.22
-master3=192.168.3.23
-worker1=192.168.3.24
-worker2=192.168.3.25
+master1=192.168.3.101
+master2=192.168.3.102
+master3=192.168.3.103
+worker1=192.168.3.104
+worker2=192.168.3.105
 
 # User of remote machines
 user=ubuntu
