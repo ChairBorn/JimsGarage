@@ -76,8 +76,6 @@ chmod 644 /home/$user/.ssh/$certName.pub
 # Install Kubectl if not already present
 if ! command -v kubectl version &> /dev/null
 then
-    echo -e " \033[31;5mKubectl not found, installing\033[0m"
-    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 else
     echo -e " \033[32;5mKubectl already installed\033[0m"
@@ -127,10 +125,10 @@ echo 'export KUBECONFIG=/etc/rancher/rke2/rke2.yaml' >> ~/.bashrc ; echo 'export
 
 # Step 2: Copy kube-vip.yaml and certs to all masters
 for newnode in "${allmasters[@]}"; do
-  scp -i ~/.ssh/$certName $HOME/kube-vip.yaml $user@$newnode:~/kube-vip.yaml
-  scp -i ~/.ssh/$certName $HOME/config.yaml $user@$newnode:~/config.yaml
-  scp -i ~/.ssh/$certName ~/.ssh/{$certName,$certName.pub} $user@$newnode:~/.ssh
-  echo -e " \033[32;5mCopied successfully!\033[0m"
+  scp ~/kube-vip.yaml $user@$newnode:~/kube-vip.yaml
+  scp /home/$user/.ssh/$certName $user@$newnode:/home/$user/.ssh/$certName
+  scp /home/$user/.ssh/$certName.pub $user@$newnode:/home/$user/.ssh/$certName.pub
+  echo -e " \033[32;5mCopied successfully to $newnode!\033[0m"
 done
 
 # Step 3: Connect to Master1 and move kube-vip.yaml and config.yaml. Then install RKE2, copy token back to admin machine. We then use the token to bootstrap additional masternodes
